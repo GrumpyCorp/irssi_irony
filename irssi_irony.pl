@@ -14,18 +14,28 @@ $VERSION="0.0.1";
 );
 
 
-# USAGE:
-# /irony <text>
-
-sub cmd_irony {
-	my ($data, $server, $witem) = @_;
-	if (!$server || !$server->{connected}) {
-		Irssi::print("Not connected to server");
-		return;
-	}
-	if ($data) {
-		$witem->command("/SAY <irony>$data</irony>");
+sub cmd_tag {
+	my ($tagname) = @_;
+	return sub {
+		my ($data, $server, $witem) = @_;
+		if (!$server || !$server->{connected}) {
+			Irssi::print("Not connected to server");
+			return;
+		}
+		if ($data) {
+			$witem->command("/SAY <$tagname>$data</$tagname>");
+		}
 	}
 }
 
+# USAGE:
+# /irony <text>
+
+sub cmd_irony { cmd_tag("irony")->(@_); }
 Irssi::command_bind('irony', 'cmd_irony');
+
+# USAGE:
+# /coolstory <text>
+
+sub cmd_coolstory { cmd_tag("cool story bro")->(@_); }
+Irssi::command_bind('coolstory', 'cmd_coolstory');
