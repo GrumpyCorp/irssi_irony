@@ -39,3 +39,9 @@ Irssi::command_bind('irony', 'cmd_irony');
 
 sub cmd_coolstory { cmd_tag("cool story bro")->(@_); }
 Irssi::command_bind('coolstory', 'cmd_coolstory');
+
+# USAGE:
+# /seriously <text>
+
+sub cmd_seriously { cmd_tag("seriously")->(@_); }
+Irssi::command_bind('seriously', 'cmd_seriously');
